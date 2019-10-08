@@ -1,12 +1,78 @@
-console.log("Hey gurl hey");
+class Game {
 
-class Master {
+    startGame = () => {
+        document.querySelector('.game-play').style.display = "flex";
+        document.querySelector('.start-section').style.display = "none";
+        this.generateElement();
+        this.drawText(targets);
+    }
+
+    generateElement = () => {
+        for (const t in targets) {
+            let container = document.getElementById("enemy-container");
+            let d = document.createElement('div');
+            d.classList.toggle('alive');
+            let p = document.createElement('p');
+            container.appendChild(d).appendChild(p);
+        }
+    }
+
+    drawText = (targets) => {
+        let scores = document.getElementsByTagName('p');
+        let divs = document.getElementsByTagName('div');
+        for (const index in targets) {
+            divs[index].style.backgroundImage = 'url(' + targets[index].imgURL + ')';
+            scores[index].innerHTML = targets[index].hitPoints;
+        }
+    }
+
+    damageEnemy = (targets) => {
+        //damage a random enemy
+        let randInt = ((Math.floor(Math.random() * targets.length)));
+        let target = targets[randInt];
+
+        target.damage();
+
+        this.drawText(targets);
+
+        if (target.hitPoints <= 0 && randInt === 0) { //If killing the first character
+            this.killThemAll(targets);
+            this.drawText(targets);
+            this.gameOver();
+        } else if (target.hitPoints <= 0) {
+            target.die();
+            document.getElementsByTagName('div')[targets.indexOf(target)].style.backgroundImage = target.imgURL;
+        }
+        return targets;
+    }
+
+    gameOver = () => {
+        document.querySelector(".game-over").style.display = "block";
+        document.querySelector('.restart').style.display = "block";
+    }
+
+    killThemAll =(targets) => {
+        for (const target of targets) {
+            target.hitPoints = 0;
+            target.imgURL = "./img/pokeball.gif"
+        }
+    }
+
+    restartGame = () => {
+        console.log('Restart');
+        window.location.reload()
+    }
+
+    runSingleProcess = (targets) => {
+        targets = this.damageEnemy(targets);
+        this.drawText(targets);
+    }
+}
+
+class Master extends Game {
     hitPoints = 80;
     damageTaken = 7;
     imgURL = "./img/mewtwo.gif"
-    constructor(nameOfEnemy) {
-        this.name = nameOfEnemy;
-    }
 
     damage = () => {
         if (this.damageTaken >= this.hitPoints) {
@@ -16,18 +82,8 @@ class Master {
         }
     }
 
-    generateElement = () => {
-        let container = document.getElementById("enemy-container");
-        let d = document.createElement('div');
-        let p = document.createElement('p');
-        let i = document.createElement('img');
-        container.appendChild(d).appendChild(p);
-        container.appendChild(d).appendChild(i);
-    }
-
     die = () => {
         this.imgURL = "./img/pokeball.gif"
-        console.log(this.imgURL);
     }
 }
 
@@ -43,82 +99,25 @@ class Drone extends UpperLevel {
     imgURL = "./img/pikachu.gif"
 }
 
+///////////////////////////////////////////////////////////////////////////////////
 
-//Create instances
-const master = new Master('master');
-const upperLevelOne = new UpperLevel('upperLevelOne');
-const upperLevelTwo = new UpperLevel('upperLevelTwo');
-const upperLevelThree = new UpperLevel('upperLevelThree');
-const upperLevelFour = new UpperLevel('upperLevelFour');
-const upperLevelFive = new UpperLevel('upperLevelFive');
-const droneOne = new Drone('droneOne');
-const droneTwo = new Drone('droneTwo');
-const droneThree = new Drone('droneThree');
-const droneFour = new Drone('droneFour');
-const droneFive = new Drone('droneFive');
-const droneSix = new Drone('droneSix');
-const droneSeven = new Drone('droneSeven');
-const droneEight = new Drone('droneEight');
+//Create instances for targets (These will be the enemies)
+const master = new Master();
+const upperLevelOne = new UpperLevel();
+const upperLevelTwo = new UpperLevel();
+const upperLevelThree = new UpperLevel();
+const upperLevelFour = new UpperLevel();
+const upperLevelFive = new UpperLevel();
+const droneOne = new Drone();
+const droneTwo = new Drone();
+const droneThree = new Drone();
+const droneFour = new Drone();
+const droneFive = new Drone();
+const droneSix = new Drone();
+const droneSeven = new Drone();
+const droneEight = new Drone();
 
 //Place targets in list
 let targets = [master, upperLevelOne, upperLevelTwo, upperLevelThree, upperLevelFour, upperLevelFive, droneOne, droneTwo, droneThree, droneFour, droneFive, droneSix, droneSeven, droneEight];
 
-// let targets = [master, droneOne, droneFour]
-// console.log(targets);
-
-
-///start the game- draw the scores
-targets.forEach(target => {
-    target.generateElement();
-    // target.displayText();
-})
-
-const damageEnemy = (targets) => {
-    //damage a random enemy
-
-    let randInt = ((Math.floor(Math.random() * targets.length)));
-    let target = targets[randInt];
-
-    target.damage();
-
-    drawText(targets);
-
-    if (target.hitPoints <= 0 && randInt === 0) {
-        gameOver();
-    } else if (target.hitPoints <= 0) {
-        console.log('DED')
-        target.die();
-        document.getElementById('img')[targets.indexOf(target)].src = target.imgURL;
-        targets.splice(targets.indexOf(target), 1)
-    }
-    return targets
-        ;
-}
-
-const drawText = (targets) => {
-    let scores = document.getElementsByTagName('p');
-    let pics = document.getElementsByTagName('img');
-    for (index in targets) {
-        pics[index].src = targets[index].imgURL;
-        scores[index].innerHTML = targets[index].hitPoints;
-    }
-}
-
-const gameOver = () => {
-    alert("You killed them all!");
-}
-
-const runSingleProcess = () => {
-    targets = damageEnemy(targets);
-
-    console.log(targets);
-    if (targets.length === 0) {
-        gameOver()
-    }
-}
-
-const startGame = () => {
-    document.querySelector('.attack').style.display = "block";
-    document.querySelector('#enemy-container').style.display = "flex";
-    document.querySelector('.start').style.display = "none";
-}
+const game = new Game();

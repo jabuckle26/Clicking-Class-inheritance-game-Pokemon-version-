@@ -1,17 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script async defer src="main.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
     <title>Document</title>
 </head>
+
 <body>
-    <section id="enemy-container"></section>
-    <a onClick = "runSingleProcess()" class="attack">Damage random enemy</a>
-    <a onClick = "startGame()" class ="start">Start Game!</a>
+    <section class="game-play">
+        <section id="enemy-container"></section>
+        <a onClick="game.runSingleProcess(targets)" class="attack button">Damage random enemy</a>
+    </section>
+
+    <section class="start-section">
+        <h1>Clicky Class Game - Pokemon Version</h1>
+        <a onClick="game.startGame()" class="start button">Start Game!</a>
+        <img src="./img/intro.gif" alt="">
+    </section>
+    <a onClick="game.restartGame()" class="restart button">Restart Game!</a>
+
+    <div class=game-over>GAME OVER?</div>
 
 </body>
+
 </html>
