@@ -3,6 +3,7 @@ console.log("Hey gurl hey");
 class Master {
     hitPoints = 80;
     damageTaken = 7;
+    imgURL = "./img/mewtwo.gif"
     constructor(nameOfEnemy) {
         this.name = nameOfEnemy;
     }
@@ -17,19 +18,29 @@ class Master {
 
     generateElement = () => {
         let container = document.getElementById("enemy-container");
+        let d = document.createElement('div');
         let p = document.createElement('p');
-        container.appendChild(p);
+        let i = document.createElement('img');
+        container.appendChild(d).appendChild(p);
+        container.appendChild(d).appendChild(i);
+    }
+
+    die = () => {
+        this.imgURL = "./img/pokeball.gif"
+        console.log(this.imgURL);
     }
 }
 
 class UpperLevel extends Master {
     hitPoints = 68;
     damageTaken = 10;
+    imgURL = "./img/charizard.gif"
 }
 
 class Drone extends UpperLevel {
     hitPoints = 60;
     damageTaken = 12;
+    imgURL = "./img/pikachu.gif"
 }
 
 
@@ -75,32 +86,36 @@ const damageEnemy = (targets) => {
     if (target.hitPoints <= 0 && randInt === 0) {
         gameOver();
     } else if (target.hitPoints <= 0) {
-        targets.splice(targets.indexOf(target),1)
-    } 
-        return targets
-    ;
+        console.log('DED')
+        target.die();
+        document.getElementById('img')[targets.indexOf(target)].src = target.imgURL;
+        targets.splice(targets.indexOf(target), 1)
+    }
+    return targets
+        ;
 }
 
 const drawText = (targets) => {
     let scores = document.getElementsByTagName('p');
+    let pics = document.getElementsByTagName('img');
     for (index in targets) {
-        
+        pics[index].src = targets[index].imgURL;
         scores[index].innerHTML = targets[index].hitPoints;
-        }
+    }
 }
 
-    const gameOver = () => {
-        console.log("You killed them all!");
-    }
+const gameOver = () => {
+    alert("You killed them all!");
+}
 
-    const runSingleProcess = () => {
-        targets = damageEnemy(targets);
-        
-        console.log(targets);
-        if (targets.length === 0) {
-            gameOver()
-        }
+const runSingleProcess = () => {
+    targets = damageEnemy(targets);
+
+    console.log(targets);
+    if (targets.length === 0) {
+        gameOver()
     }
+}
 
 const startGame = () => {
     document.querySelector('.attack').style.display = "block";

@@ -11,9 +11,13 @@ a {
 
 #enemy-container {
     display: none;
-    justify-content: space-between;
-    width: 100%;
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: space-evenly;
+   align-content: space-around;
+   width: 100%;
 }
+
 
 a.attack {
     display:none;
@@ -27,11 +31,16 @@ a.start{
     font: black;
 }
 
-p {
-    background-color: blue;
-    padding:10px;
+div {
     margin: 2px;
     display: inline-block;
+    border: 2px solid black;
+
+}
+
+p {
+    font-size: 3em;
+    text-align: center;
 }
 
 p.dead {
