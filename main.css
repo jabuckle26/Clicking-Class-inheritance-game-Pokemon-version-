@@ -1,0 +1,39 @@
+html {
+    background-color: pink;
+}
+
+a {
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    align-items: center;
+}
+
+#enemy-container {
+    display: none;
+    justify-content: space-between;
+    width: 100%;
+}
+
+a.attack {
+    display:none;
+    background-color: black;
+    color: white;
+}
+
+a.start{
+    display:block;
+    background-color: grey;
+    font: black;
+}
+
+p {
+    background-color: blue;
+    padding:10px;
+    margin: 2px;
+    display: inline-block;
+}
+
+p.dead {
+    background-color: red;
+}
