@@ -43,7 +43,7 @@ class Game {
             let hpBox = document.createElement('div');
             let hpBar = document.createElement('div');
             hpBox.classList.toggle('hp-box')
-            hpBox.classList.toggle('hp-bar')
+            hpBar.classList.toggle('hp-bar')
             hpBox.appendChild(hpBar);
             dSingle.appendChild(hpBox);
 
@@ -54,9 +54,11 @@ class Game {
     drawText = (targets) => {
         let scores = document.getElementsByTagName('p');
         let divs = document.querySelectorAll('.alive');
+        
         for (const index in targets) {
             divs[index].style.backgroundImage = 'url(' + targets[index].imgURL + ')';
             scores[index].innerHTML = targets[index].hitPoints;
+
         }
     }
 
@@ -64,8 +66,22 @@ class Game {
         //damage a random enemy
         let randInt = ((Math.floor(Math.random() * targets.length)));
         let target = targets[randInt];
+        let hps = document.querySelectorAll('.hp-bar');
 
         target.damage();
+
+        //Update HP bar
+        let HPperCent = targets[randInt].hitPoints/targets[randInt].startHitPoints * 100;
+        if (HPperCent > 50){
+            hps[randInt].style.backgroundColor = "green";
+        } else if (HPperCent < 50 && HPperCent > 25) {
+            hps[randInt].style.backgroundColor = "yellow";
+        } else {
+            hps[randInt].style.backgroundColor = "red";
+        }
+        
+        hps[randInt].style.width = HPperCent + "%";
+
 
         this.drawText(targets);
 
@@ -73,7 +89,7 @@ class Game {
             this.killThemAll(targets);
             this.drawText(targets);
             this.gameOver();
-        } else if (target.hitPoints <= 0) {
+        } else if (target.hitPoints <= 0) { //if killing a single character
             target.die();
             document.getElementsByTagName('div')[targets.indexOf(target)].style.backgroundImage = target.imgURL;
         }
@@ -83,12 +99,17 @@ class Game {
     gameOver = () => {
         document.querySelector(".game-over").style.display = "block";
         document.querySelector('.restart').style.display = "block";
+        document.querySelector('html').style.backgroundImage = "url('./img/ending.gif')"
     }
 
     killThemAll = (targets) => {
+        let hps = document.querySelectorAll('.hp-bar');
         for (const target of targets) {
             target.hitPoints = 0;
             target.imgURL = "./img/pokeball.gif"
+            const index = targets.indexOf(target);
+            hps[index].style.width = "0%"
+
         }
     }
 
@@ -104,6 +125,7 @@ class Game {
 }
 
 class Master extends Game {
+    startHitPoints = 80;
     hitPoints = 80;
     damageTaken = 7;
     imgURL = "./img/mewtwo.gif"
@@ -122,12 +144,14 @@ class Master extends Game {
 }
 
 class UpperLevel extends Master {
+    startHitPoints = 68;
     hitPoints = 68;
     damageTaken = 10;
     imgURL = "./img/charizard.gif"
 }
 
 class Drone extends UpperLevel {
+    startHitPoints = 60;
     hitPoints = 60;
     damageTaken = 12;
     imgURL = "./img/pikachu.gif"
