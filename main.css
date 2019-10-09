@@ -39,7 +39,6 @@ a {
 }
 
 .button:active {
-
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
@@ -85,6 +84,7 @@ div.dead {
     width: 50px;
     height: 50px;
     background-size: cover;
+    background-position: center;
     background-image: url("./img/pokeball.gif")
 
 }
