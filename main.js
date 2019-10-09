@@ -11,9 +11,18 @@ class Game {
         let targets = [];
         let enemytarget;
         for (const enemyType of enemies) {
-            console.log(targets)
             for (let i = 0; i < enemyType.number; i++) {
-                enemytarget = enemyType.level;
+                switch (enemyType.level) {
+                    case ("Master"):
+                        enemytarget = new Master();
+                        break
+                    case ("UpperLevel"):
+                        enemytarget = new UpperLevel();
+                        break
+                    case ("Drone"):
+                        enemytarget = new Drone();
+                        break
+                }
                 targets.push(enemytarget)
             }
         }
@@ -117,43 +126,18 @@ const game = new Game();
 
 ///////// Define enemies
 enemies = [{
-    level: new Master(),
+    level: "Master",
     number: 1
 }, {
-    level: new UpperLevel(),
+    level: "UpperLevel",
     number: 5
 },
 {
-    level: new Drone(),
+    level: "Drone",
     number: 8
 }]
 
-// let noQueens = 1;
-// let noUpperLevels = 5;
-// let noDrones = 8;
-
 targets = game.generateTargets(enemies);
 
-//Create instances for targets (These will be the enemies)
-// const master = new Master();
-// const upperLevelOne = new UpperLevel();
-// const upperLevelTwo = new UpperLevel();
-// const upperLevelThree = new UpperLevel();
-// const upperLevelFour = new UpperLevel();
-// const upperLevelFive = new UpperLevel();
-// const droneOne = new Drone();
-// const droneTwo = new Drone();
-// const droneThree = new Drone();
-// const droneFour = new Drone();
-// const droneFive = new Drone();
-// const droneSix = new Drone();
-// const droneSeven = new Drone();
-// const droneEight = new Drone();
-
-//Place targets in list
-// let targets = [master, upperLevelOne, upperLevelTwo, upperLevelThree, upperLevelFour, upperLevelFive, droneOne, droneTwo, droneThree, droneFour, droneFive, droneSix, droneSeven, droneEight];
-
-
-// let targets = [master, upperLevelOne, upperLevelTwo, upperLevelThree, upperLevelFour, upperLevelFive];
 
 
