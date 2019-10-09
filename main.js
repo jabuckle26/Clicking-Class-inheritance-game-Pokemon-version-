@@ -31,17 +31,29 @@ class Game {
 
     generateElement = () => {
         for (const t in targets) {
-            let container = document.getElementById("enemy-container");
-            let d = document.createElement('div');
+            let container = document.getElementById("main-enemy-container");
+            let dSingle = document.createElement('div'); //single main box
+            dSingle.classList.toggle("enemy-container")
+            let d = document.createElement('div'); //image box
             d.classList.toggle('alive');
-            let p = document.createElement('p');
-            container.appendChild(d).appendChild(p);
+            let p = document.createElement('p'); //text
+            container.appendChild(dSingle);
+            dSingle.appendChild(d);
+            dSingle.appendChild(p);
+            let hpBox = document.createElement('div');
+            let hpBar = document.createElement('div');
+            hpBox.classList.toggle('hp-box')
+            hpBox.classList.toggle('hp-bar')
+            hpBox.appendChild(hpBar);
+            dSingle.appendChild(hpBox);
+
+            //d.appendChild(p);
         }
     }
 
     drawText = (targets) => {
         let scores = document.getElementsByTagName('p');
-        let divs = document.getElementsByTagName('div');
+        let divs = document.querySelectorAll('.alive');
         for (const index in targets) {
             divs[index].style.backgroundImage = 'url(' + targets[index].imgURL + ')';
             scores[index].innerHTML = targets[index].hitPoints;

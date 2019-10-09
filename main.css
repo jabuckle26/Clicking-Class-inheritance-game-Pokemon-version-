@@ -1,5 +1,8 @@
 *{
     font-family: 'Press Start 2P', cursive;
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
@@ -28,7 +31,7 @@ a {
     align-items: space-evenly;
 }
 
-#enemy-container {
+#main-enemy-container {
    display: flex;
    flex-direction: row;
    flex-wrap: wrap;
@@ -37,6 +40,11 @@ a {
    width: 100%;
    margin-top:15px;
 }
+
+.enemy-container {
+    height:200px;
+}
+
 
 .button:active {
     box-shadow: 0 5px #666;
@@ -92,15 +100,15 @@ div.dead {
 p {
     font-size: 2em;
     text-align: center;
-    margin-top: 50px;
+
 }
-.hp-bar{
+.hp-box{
     width: 80%;
     height: 20px;
     border: 1px solid black;
   }
   
-.hp {
+.hp-bar {
     width:70%;
     height:20px;
     background-color:green;
