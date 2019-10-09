@@ -46,15 +46,13 @@ class Game {
             hpBar.classList.toggle('hp-bar')
             hpBox.appendChild(hpBar);
             dSingle.appendChild(hpBox);
-
-            //d.appendChild(p);
         }
     }
 
     drawText = (targets) => {
         let scores = document.getElementsByTagName('p');
         let divs = document.querySelectorAll('.alive');
-        
+
         for (const index in targets) {
             divs[index].style.backgroundImage = 'url(' + targets[index].imgURL + ')';
             scores[index].innerHTML = targets[index].hitPoints;
@@ -71,15 +69,15 @@ class Game {
         target.damage();
 
         //Update HP bar
-        let HPperCent = targets[randInt].hitPoints/targets[randInt].startHitPoints * 100;
-        if (HPperCent > 50){
+        let HPperCent = targets[randInt].hitPoints / targets[randInt].startHitPoints * 100;
+        if (HPperCent > 50) {
             hps[randInt].style.backgroundColor = "green";
         } else if (HPperCent < 50 && HPperCent > 25) {
             hps[randInt].style.backgroundColor = "yellow";
         } else {
             hps[randInt].style.backgroundColor = "red";
         }
-        
+
         hps[randInt].style.width = HPperCent + "%";
 
 
@@ -157,10 +155,9 @@ class Drone extends UpperLevel {
     imgURL = "./img/pikachu.gif"
 }
 
-///////////////////////////////////////////////////////////////////////////////////
 const game = new Game();
 
-///////// Define enemies
+///////// Define enemies - User can set enemy amounts here /////////
 enemies = [{
     level: "Master",
     number: 1
@@ -173,6 +170,7 @@ enemies = [{
     number: 8
 }]
 
+//Generate array of enemies based on defined parameters
 targets = game.generateTargets(enemies);
 
 
