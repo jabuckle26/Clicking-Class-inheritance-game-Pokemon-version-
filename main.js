@@ -7,6 +7,19 @@ class Game {
         this.drawText(targets);
     }
 
+    generateTargets = (enemies) => {
+        let targets = [];
+        let enemytarget;
+        for (const enemyType of enemies) {
+            console.log(targets)
+            for (let i = 0; i < enemyType.number; i++) {
+                enemytarget = enemyType.level;
+                targets.push(enemytarget)
+            }
+        }
+        return targets
+    }
+
     generateElement = () => {
         for (const t in targets) {
             let container = document.getElementById("enemy-container");
@@ -51,7 +64,7 @@ class Game {
         document.querySelector('.restart').style.display = "block";
     }
 
-    killThemAll =(targets) => {
+    killThemAll = (targets) => {
         for (const target of targets) {
             target.hitPoints = 0;
             target.imgURL = "./img/pokeball.gif"
@@ -100,24 +113,47 @@ class Drone extends UpperLevel {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
+const game = new Game();
+
+///////// Define enemies
+enemies = [{
+    level: new Master(),
+    number: 1
+}, {
+    level: new UpperLevel(),
+    number: 5
+},
+{
+    level: new Drone(),
+    number: 8
+}]
+
+// let noQueens = 1;
+// let noUpperLevels = 5;
+// let noDrones = 8;
+
+targets = game.generateTargets(enemies);
 
 //Create instances for targets (These will be the enemies)
-const master = new Master();
-const upperLevelOne = new UpperLevel();
-const upperLevelTwo = new UpperLevel();
-const upperLevelThree = new UpperLevel();
-const upperLevelFour = new UpperLevel();
-const upperLevelFive = new UpperLevel();
-const droneOne = new Drone();
-const droneTwo = new Drone();
-const droneThree = new Drone();
-const droneFour = new Drone();
-const droneFive = new Drone();
-const droneSix = new Drone();
-const droneSeven = new Drone();
-const droneEight = new Drone();
+// const master = new Master();
+// const upperLevelOne = new UpperLevel();
+// const upperLevelTwo = new UpperLevel();
+// const upperLevelThree = new UpperLevel();
+// const upperLevelFour = new UpperLevel();
+// const upperLevelFive = new UpperLevel();
+// const droneOne = new Drone();
+// const droneTwo = new Drone();
+// const droneThree = new Drone();
+// const droneFour = new Drone();
+// const droneFive = new Drone();
+// const droneSix = new Drone();
+// const droneSeven = new Drone();
+// const droneEight = new Drone();
 
 //Place targets in list
-let targets = [master, upperLevelOne, upperLevelTwo, upperLevelThree, upperLevelFour, upperLevelFive, droneOne, droneTwo, droneThree, droneFour, droneFive, droneSix, droneSeven, droneEight];
+// let targets = [master, upperLevelOne, upperLevelTwo, upperLevelThree, upperLevelFour, upperLevelFive, droneOne, droneTwo, droneThree, droneFour, droneFive, droneSix, droneSeven, droneEight];
 
-const game = new Game();
+
+// let targets = [master, upperLevelOne, upperLevelTwo, upperLevelThree, upperLevelFour, upperLevelFive];
+
+

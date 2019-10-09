@@ -75,6 +75,7 @@ div.alive{
     width: 150px;
     height: 150px;
     background-size: cover;
+    
 }
 
 div.dead {
@@ -86,13 +87,23 @@ div.dead {
     background-size: cover;
     background-position: center;
     background-image: url("./img/pokeball.gif")
-
 }
 
 p {
     font-size: 2em;
     text-align: center;
     margin-top: 50px;
+}
+.hp-bar{
+    width: 80%;
+    height: 20px;
+    border: 1px solid black;
+  }
+  
+.hp {
+    width:70%;
+    height:20px;
+    background-color:green;
 }
 
 .game-over {
